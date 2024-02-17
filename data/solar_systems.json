@@ -1,0 +1,75 @@
+{
+	"type": "system",
+	"systems": [
+		{
+			"name": "Earth_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Earth",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Luna",
+					"position" : {
+						"x": 3.84e8,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 1022.0,
+						"y": 0.0
+					}
+				}
+			]
+		},
+		{
+			"name": "Mars_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Mars",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Phobos",
+					"position" : {
+						"x": 9.37e6,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 2138.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Deimos",
+					"position" : {
+						"x": 2.346e7,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 1351.3,
+						"y": 0.0
+					}
+				}
+			]
+		}
+	]
+}

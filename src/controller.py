@@ -21,5 +21,5 @@ class Controller:
 		propagator_process.start()
 		graphics_process.start()
 		graphics_process.join()
-		propagator_process.join()
+		propagator_process.terminate()
 
