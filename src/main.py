@@ -1,15 +1,19 @@
 import numpy as np
 from propagator import Propagator
 from graphicscontroller import GraphicsController
+from controller import Controller
 from body import Body
 from bodyloader import BodyLoader
+from systembuilder import SystemBuilder
 import json
 
 def main():
 
 	files = ["solar_bodies.json", "solar_systems.json"]
 	body_loader = BodyLoader(files)
-	bodies = body_loader.get_system("Mars_Systemiss")
+	system_builder = SystemBuilder(body_loader)
+	system_builder.add_system("Earth_System", (0.0, 0.0), (0.0, 0.0), 90)
+	bodies = system_builder.get_bodies()
 	for body in bodies:
 		print (body)
 	# bodies = [
@@ -20,10 +24,10 @@ def main():
 	# 	Body(5.98e24, np.array([0.0, 3.5e8]), np.array([-3900.0, 0.0]), 6.378e6),
 	# 	Body(5.98e24, np.array([0.0, -3.5e8]), np.array([3900.0, 0.0]), 6.378e6)
 	# ]
-	# propagator = Propagator(bodies)
-	# graphics_controller = GraphicsController()
-	# controller = Controller(propagator, graphics_controller)
-	# controller.start_simulation()
+	propagator = Propagator(bodies)
+	graphics_controller = GraphicsController()
+	controller = Controller(propagator, graphics_controller)
+	controller.start_simulation()
 
 if __name__ == "__main__":
 	main()

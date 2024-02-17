@@ -14,7 +14,7 @@ class GraphicsController:
 
 	def run(self, from_prop = None, to_prop = None, to_cont = None):
 		pygame.init()
-		self.size = width, height = 640, 640
+		self.size = self.width, self.height = 1000, 1000
 		self.screen = pygame.display.set_mode(self.size)
 		self.last_gbodies = from_prop.get()
 		print("last Gbodies " + str(self.last_gbodies))
