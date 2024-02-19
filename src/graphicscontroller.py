@@ -1,8 +1,10 @@
 import pygame, sys
 import queue
+import math
 import numpy as np
 class GraphicsController:
-	def __init__(self):
+	def __init__(self, true_size = True):
+		self.true_size = true_size
 		self.size = self.width, self.height = 640, 640
 		self.screen = None
 		self.last_gbodies = None
@@ -53,5 +55,14 @@ class GraphicsController:
 				break
 
 	def draw_gbody(self, gbody):
-		pygame.draw.circle(self.screen, gbody.color, (gbody.pos-self.top_left)/self.pix_ratio, gbody.radius/self.pix_ratio)
+		pygame.draw.circle(self.screen, gbody.color, (gbody.pos-self.top_left)/self.pix_ratio, self.inflate_size(gbody.radius/self.pix_ratio))
+
+
+	def inflate_size(self, radius):
+		x = 1.0
+		if (not self.true_size):
+			return max((-1/(math.pow(self.width, x-1))) * math.pow(-radius + self.width, x) + self.width, 1)
+		else:
+			return radius
+
 

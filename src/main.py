@@ -12,7 +12,9 @@ def main():
 	files = ["solar_bodies.json", "solar_systems.json"]
 	body_loader = BodyLoader(files)
 	system_builder = SystemBuilder(body_loader)
-	system_builder.add_system("Earth_System", (0.0, 0.0), (0.0, 0.0), 90)
+	system_builder.add_body("Earth", (-9.1e8, 0.0), (0.0, -391340.0))
+	system_builder.add_body("Earth", (9.1e8, 0.0), (0.0, 391340.0))
+	system_builder.add_body("Sun", (0.0, 0.0), (0.0, 0.0))
 	bodies = system_builder.get_bodies()
 	for body in bodies:
 		print (body)
@@ -25,7 +27,7 @@ def main():
 	# 	Body(5.98e24, np.array([0.0, -3.5e8]), np.array([3900.0, 0.0]), 6.378e6)
 	# ]
 	propagator = Propagator(bodies)
-	graphics_controller = GraphicsController()
+	graphics_controller = GraphicsController(False)
 	controller = Controller(propagator, graphics_controller)
 	controller.start_simulation()
 
