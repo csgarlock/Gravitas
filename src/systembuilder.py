@@ -7,8 +7,8 @@ class SystemBuilder:
 
 	def add_body(self, name, pos, vel):
 		body = self.body_loader.get_body(name)
-		body.pos = np.array(pos)
-		body.vel = np.array(vel)
+		body.pos = np.array(pos, dtype = np.float64)
+		body.vel = np.array(vel, dtype = np.float64)
 		self.bodies.append(body)
 
 	def add_system(self, name, pos, vel, rot = 0):

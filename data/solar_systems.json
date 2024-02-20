@@ -25,7 +25,7 @@
 					},
 					"velocity": {
 						"x": 0.0,
-						"y": 1022.0
+						"y": -1022.0
 					}
 				}
 			]
@@ -54,7 +54,7 @@
 					},
 					"velocity": {
 						"x": 0.0,
-						"y": 2138.0
+						"y": -2138.0
 					}
 				},
 				{
@@ -66,7 +66,125 @@
 					},
 					"velocity": {
 						"x": 0.0,
-						"y": 1351.3
+						"y": -1351.3
+					}
+				}
+			]
+		},
+		{
+			"name": "Jupiter_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Jupiter",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Io",
+					"position" : {
+						"x": 421700000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -17334
+					}
+				},
+				{
+					"type": "body",
+					"name": "Europa",
+					"position" : {
+						"x": 0.0,
+						"y": 670900000.0
+					},
+					"velocity": {
+						"x": 13740.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Ganymede",
+					"position" : {
+						"x": 756887098.0,
+						"y": 756887098.0
+					},
+					"velocity": {
+						"x": 7693.0,
+						"y": -7693.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Callisto",
+					"position" : {
+						"x": 1882700000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -8210.0
+					}
+				}
+			]
+		},
+		{
+			"name": "Saturn_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Saturn",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Titan",
+					"position" : {
+						"x": 1221870000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -5570.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Rhea",
+					"position" : {
+						"x": 0.0,
+						"y": 527108000.0
+					},
+					"velocity": {
+						"x": 8480.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Iapetus",
+					"position" : {
+						"x": -3560820000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 3260.0
 					}
 				}
 			]

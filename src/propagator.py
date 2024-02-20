@@ -3,7 +3,7 @@ import math
 import time
 from gbody import GBody
 class Propagator:
-	def __init__(self, bodies, G = 6.6743e-11, time_step = 60, time_rate = 3600*6):
+	def __init__(self, bodies, G = 6.6743e-11, time_step = 60, time_rate = 86400):
 		self.bodies = bodies
 		self.G = G
 		self.time_rate = time_rate
@@ -52,7 +52,7 @@ class Propagator:
 	def get_gbodies(self):
 		g_bodies = []
 		for body in self.bodies:
-			g_body = GBody(body.pos, body.radius, body.name, body.color)
+			g_body = GBody(body.mass, body.pos, body.radius, body.name, body.color)
 			g_bodies.append(g_body)
 		return g_bodies
 

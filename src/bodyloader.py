@@ -27,7 +27,7 @@ class BodyLoader:
 
 	def get_body(self, name):
 		try:
-			return (Body(self.bodies[name]["mass"], np.array([0, 0]), np.array([0, 0]), self.bodies[name]["radius"], name))
+			return (Body(self.bodies[name]["mass"], np.array([0.0, 0.0]), np.array([0.0, 0.0]), self.bodies[name]["radius"], name))
 		except KeyError:
 			raise BodyLoaderError("Could Not find body with name: " + str(name))
 
