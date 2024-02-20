@@ -1,6 +1,7 @@
 from body import Body
 import json
 import numpy as np
+import math
 class BodyLoader:
 	def __init__(self, files):
 		self.data_folder = "../data/"
@@ -38,13 +39,32 @@ class BodyLoader:
 			raise BodyLoaderError("Could not find system with name: " + str(name))
 		bodies = []
 		for body in system["bodies"]:
-			n_body = self.get_body(body["name"])
-			pos = body["position"]
-			n_body.pos = np.array([pos["x"], pos["y"]])
-			vel = body["velocity"]
-			n_body.vel = np.array([vel["x"], vel["y"]])
-			bodies.append(n_body)
+			if (body["type"] == "body"):
+				n_body = self.get_body(body["name"])
+				pos = body["position"]
+				n_body.pos = np.array([pos["x"], pos["y"]])
+				vel = body["velocity"]
+				n_body.vel = np.array([vel["x"], vel["y"]])
+				bodies.append(n_body)
+			if (body["type"] == "system"):
+				system_bodies = self.get_system(body["name"])
+				for s_body in system_bodies:
+					s_body.pos = self.rotate_vector(s_body.pos, body["rotation"])
+					s_body.vel = self.rotate_vector(s_body.vel, body["rotation"])
+					pos = body["position"]
+					s_body.pos += np.array([pos["x"], pos["y"]])
+					vel = body["velocity"]
+					s_body.vel += np.array([vel["x"], vel["y"]])
+				bodies.extend(system_bodies)
 		return bodies
+
+	def rotate_vector(self, vector, degrees):
+		x1, y1 = vector
+		radians = math.radians(degrees)
+		x1_prime = x1 * math.cos(radians) - y1 * math.sin(radians)
+		y1_prime = x1 * math.sin(radians) + y1 * math.cos(radians)
+
+		return np.array((x1_prime, y1_prime))
 
 
 

@@ -13,9 +13,9 @@ def main():
 	files = ["solar_bodies.json", "solar_systems.json"]
 	body_loader = BodyLoader(files)
 	system_builder = SystemBuilder(body_loader)
-	system_builder.add_system("Mars_System", (0, 0), (0, 0))
+	system_builder.add_system("Solar_System_Full", (0, 0), (0, 0))
 	bodies = system_builder.get_bodies()
-	propagator = Propagator(bodies, time_step = 1, time_rate = Conversion.minutes(20))
+	propagator = Propagator(bodies, time_step = Conversion.minutes(20), time_rate = Conversion.hours(6))
 	graphics_controller = GraphicsController(False)
 	controller = Controller(propagator, graphics_controller)
 	controller.start_simulation()

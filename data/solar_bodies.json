@@ -92,14 +92,14 @@
 			"radius": 25362000
 		},
 		{
-			"name": "Miranda",
-			"mass": 65900000000000000000,
-			"radius": 236000
+			"name": "Titania",
+			"mass": 3.4e21,
+			"radius": 788400
 		},
 		{
-			"name": "Ariel",
-			"mass": 1.353e+21,
-			"radius": 532000
+			"name": "Oberon",
+			"mass": 3.076e21,
+			"radius": 761400
 		},
 		{
 			"name": "Umbriel",
@@ -115,11 +115,6 @@
 			"name": "Triton",
 			"mass": 2.14e+22,
 			"radius": 1353400
-		},
-		{
-			"name": "Proteus",
-			"mass": 50500000000000000000,
-			"radius": 210000
 		},
 		{
 			"name": "Pluto",

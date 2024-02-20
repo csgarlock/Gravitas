@@ -188,6 +188,155 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Uranus_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Uranus",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Titania",
+					"position" : {
+						"x": 435910000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -3640.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Oberon",
+					"position" : {
+						"x": -583520000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 3150.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Umbriel",
+					"position" : {
+						"x": 0.0,
+						"y": 266000000.0
+					},
+					"velocity": {
+						"x": 4670.0,
+						"y": 0.0
+					}
+				}
+			]
+		},
+		{
+			"name": "Neptune_System",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Neptune",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Triton",
+					"position" : {
+						"x": 354759000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 4390.0
+					}
+				}
+			]
+		},
+		{
+			"name": "Solar_System_Full",
+			"bodies": [
+				{
+					"type": "body",
+					"name": "Sun",
+					"position" : {
+						"x": 0.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Mercury",
+					"position" : {
+						"x": 58000000000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -47360.0
+					}
+				},
+				{
+					"type": "body",
+					"name": "Venus",
+					"position" : {
+						"x": 0.0,
+						"y": 108210000000.0
+					},
+					"velocity": {
+						"x": 35020.0,
+						"y": 0.0
+					}
+				},
+				{
+					"type": "system",
+					"name": "Earth_System",
+					"position" : {
+						"x": -149598023000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 29782.7
+					},
+					"rotation": 180.0
+				},
+				{
+					"type": "system",
+					"name": "Mars_System",
+					"position" : {
+						"x": 0.0,
+						"y": -227939366000.0
+					},
+					"velocity": {
+						"x": -24070.0,
+						"y": 0.0
+					},
+					"rotation": 270.0
+				}
+			]
 		}
 	]
 }
