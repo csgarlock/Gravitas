@@ -1,6 +1,8 @@
 import numpy as np
 import math
 import time
+import os
+import pickle
 from gbody import GBody
 class Propagator:
 	def __init__(self, bodies, G = 6.6743e-11, time_step = 60, time_rate = 86400):
@@ -48,6 +50,29 @@ class Propagator:
 					pass
 			else:
 				print("Time Rate overrun")
+
+	def run_to_file(self, steps, name, freq = 10, overwrite = False):
+		out_path = "../out/"
+		file_path = out_path + name + ".gravitas"
+		if (overwrite == False):
+			if (os.path.exists(file_path)):
+				print("File with that name already exists")
+				return
+		file = open(file_path, "wb")
+		pickle.dump(self.bodies, file, protocol = pickle.DEFAULT_PROTOCOL)
+		steps_ran = 0
+		start_time = time.perf_counter()
+		last_second = 0
+		while (steps_ran < steps):
+			self.step()
+			if (time.perf_counter() - start_time > last_second + 1):
+				print(f"{steps_ran/steps:.2%} complete")
+				last_second = last_second + 1
+			pickle.dump(self.bodies, file, protocol = pickle.DEFAULT_PROTOCOL)
+			steps_ran += 1
+		file.close()
+
+
 
 	def get_gbodies(self):
 		g_bodies = []

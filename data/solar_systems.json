@@ -321,7 +321,7 @@
 						"x": 0.0,
 						"y": 29782.7
 					},
-					"rotation": 180.0
+					"rotation": 0.0
 				},
 				{
 					"type": "system",
@@ -335,6 +335,58 @@
 						"y": 0.0
 					},
 					"rotation": 270.0
+				},
+				{
+					"type": "system",
+					"name": "Jupiter_System",
+					"position" : {
+						"x": 778479000000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": -13070.0
+					},
+					"rotation": 0.0
+				},
+				{
+					"type": "system",
+					"name": "Saturn_System",
+					"position" : {
+						"x": 0.0,
+						"y": 1433530000000.0
+					},
+					"velocity": {
+						"x": 9680.0,
+						"y": 0.0
+					},
+					"rotation": 0.0
+				},
+				{
+					"type": "system",
+					"name": "Uranus_System",
+					"position" : {
+						"x": -2870972000000.0,
+						"y": 0.0
+					},
+					"velocity": {
+						"x": 0.0,
+						"y": 6800.0
+					},
+					"rotation": 0.0
+				},
+				{
+					"type": "system",
+					"name": "Neptune_System",
+					"position" : {
+						"x": 0.0,
+						"y": -4500000000000.0
+					},
+					"velocity": {
+						"x": -5430.0,
+						"y": 0.0
+					},
+					"rotation": 0.0
 				}
 			]
 		}
