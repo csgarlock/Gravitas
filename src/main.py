@@ -17,11 +17,11 @@ def main():
 	system_builder.add_system("Earth_System", (0, 0), (0, 0))
 	bodies = system_builder.get_bodies()
 	# run_to_file(bodies, 10000, "test", True)
-	run_from_file("full_solar_sim")
-	# run_live(bodies)
+	# run_from_file("test")
+	run_live(bodies)
 
 def run_from_file(file):
-	graphics_controller = GraphicsController(False, 1, file, 600)
+	graphics_controller = GraphicsController(False, 1, file, 10)
 	graphics_controller.run()
 
 def run_to_file(bodies, steps, name, overwrite = True):
@@ -31,7 +31,7 @@ def run_to_file(bodies, steps, name, overwrite = True):
 
 def run_live(bodies):
 
-	propagator = Propagator(bodies, time_step = Conversion.minutes(20), time_rate = Conversion.hours(40))
+	propagator = Propagator(bodies, time_step = Conversion.minutes(1), time_rate = Conversion.days(1))
 	graphics_controller = GraphicsController(False)
 	controller = Controller(propagator, graphics_controller)
 	controller.start_simulation()

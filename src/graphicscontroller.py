@@ -20,6 +20,7 @@ class GraphicsController:
 		self.frame_size = 0
 		self.pix_ratio = 1
 		self.last_mouse = (0, 0)
+		self.focus_id = None
 		self.mode = mode
 		self.file = file
 		self.bodies = []
@@ -52,10 +53,12 @@ class GraphicsController:
 						break 
 			gbodies = []
 			for body in self.bodies[0]:
-				gbodies.append(GBody(body.mass, body.pos, body.radius, body.name, body.color))
+				gbodies.append(GBody(body.mass, body.pos, body.radius, body.id, body.name, body.color))
 			self.last_gbodies = gbodies
 			self.center_screen()
 
+		last_click_time = None
+		double_click_time = 0.500
 		while (True):
 			loop_start = time.perf_counter()
 			for event in pygame.event.get():
@@ -65,14 +68,24 @@ class GraphicsController:
 				elif (event.type == pygame.KEYDOWN):
 					if (event.key == pygame.K_c):
 						self.center_screen()
+					if (event.key == pygame.K_z):
+						self.focus_id = None
 				elif (event.type == pygame.MOUSEWHEEL):
 					self.zoom(event.y)
 				elif (event.type == pygame.MOUSEMOTION):
 					if (event.buttons[0] == 1):
 						self.pan(event.rel)
+				elif (event.type == pygame.MOUSEBUTTONDOWN):
+					if (event.button == 1):
+						if (last_click_time is not None):
+							if (time.perf_counter() - last_click_time < double_click_time):
+								self.focus_id = self.get_id_at_pos(event.pos, 10)
+						last_click_time = time.perf_counter()
 
 			self.screen.fill("black")
 			self.update_last_gbodies(from_prop)
+			if (self.focus_id is not None):
+				self.focus_on_id()
 			for gbody in self.last_gbodies:
 				self.draw_gbody(gbody)
 			pygame.display.flip()
@@ -96,11 +109,31 @@ class GraphicsController:
 			gbodies = []
 			try:
 				for body in self.bodies[math.floor(self.time_pos)]:
-					gbodies.append(GBody(body.mass, body.pos, body.radius, body.name, body.color))
+					gbodies.append(GBody(body.mass, body.pos, body.radius, body.id, body.name, body.color))
 			except IndexError:
 				pygame.quit()
 				sys.exit()
 			self.last_gbodies = gbodies
+
+	def get_id_at_pos(self, pos, dead_zone = 0):
+		found_gbodies = []
+		for gbody in self.last_gbodies:
+			s_radius = max(1, gbody.radius/self.pix_ratio) + dead_zone
+			s_pos = (gbody.pos-self.top_left)/self.pix_ratio
+			distance = math.sqrt(math.pow(s_pos[0] - pos[0], 2) + math.pow(s_pos[1] - pos[1], 2))
+			if (distance <= s_radius):
+				found_gbodies.append(gbody)
+		if (len(found_gbodies) > 0):
+			max_mass = 0
+			max_id = 0
+			for gbody in found_gbodies:
+				if (gbody.mass > max_mass):
+					max_mass = gbody.mass
+					max_id = gbody.id
+			return max_id
+		else:
+			return None
+
 
 
 	def pan(self, vector):
@@ -134,6 +167,15 @@ class GraphicsController:
 		self.top_left = np.array([-1.5 * max_from_av, -1.5 * max_from_av]) + self.center
 		self.frame_size = 3 * max_from_av
 		self.pix_ratio = self.frame_size/self.width
+
+	def focus_on_id(self):
+		f_gbody = None
+		for gbody in self.last_gbodies:
+			if (gbody.id == self.focus_id):
+				f_gbody = gbody
+				break
+		self.center = f_gbody.pos
+		self.top_left = np.array([-self.frame_size/2.0, -self.frame_size/2.0]) + self.center
 
 
 	def draw_gbody(self, gbody):

@@ -9,6 +9,8 @@ class Body:
 		self.color = color
 		self.force = np.zeros((2))
 
+		self.id = id(self)
+
 	def __str__(self):
 		return self.name + " At " + str(self.pos) + " With Velocity " + str(self.vel) 
 

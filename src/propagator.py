@@ -86,7 +86,7 @@ class Propagator:
 	def get_gbodies(self):
 		g_bodies = []
 		for body in self.bodies:
-			g_body = GBody(body.mass, body.pos, body.radius, body.name, body.color)
+			g_body = GBody(body.mass, body.pos, body.radius, body.id, body.name, body.color)
 			g_bodies.append(g_body)
 		return g_bodies
 
