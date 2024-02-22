@@ -14,23 +14,19 @@ def main():
 	files = ["solar_bodies.json", "solar_systems.json"]
 	body_loader = BodyLoader(files)
 	system_builder = SystemBuilder(body_loader)
-	system_builder.add_system("Solar_System_Full", (0, 0), (0, 0))
+	system_builder.add_system("Earth_System", (0, 0), (0, 0))
 	bodies = system_builder.get_bodies()
-	run_to_file(bodies)
-	# run_from_file("test")
+	# run_to_file(bodies, 10000, "test", True)
+	run_from_file("full_solar_sim")
 	# run_live(bodies)
 
 def run_from_file(file):
-	with open("../out/" + file+ ".gravitas", "rb") as f:
-		loaded_data = pickle.load(f)
-		loaded_data2 = pickle.load(f)
-		for data in loaded_data:
-			print (data)
-		print(loaded_data2)
+	graphics_controller = GraphicsController(False, 1, file, 600)
+	graphics_controller.run()
 
-def run_to_file(bodies):
+def run_to_file(bodies, steps, name, overwrite = True):
 	propagator = Propagator(bodies, time_step = Conversion.minutes(1))
-	propagator.run_to_file(10000, "test")
+	propagator.run_to_file(steps, name, overwrite = overwrite)
 
 
 def run_live(bodies):

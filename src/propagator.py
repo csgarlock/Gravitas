@@ -63,16 +63,25 @@ class Propagator:
 		steps_ran = 0
 		start_time = time.perf_counter()
 		last_second = 0
+		last_second_steps = 0
 		while (steps_ran < steps):
 			self.step()
 			if (time.perf_counter() - start_time > last_second + 1):
-				print(f"{steps_ran/steps:.2%} complete")
+				time_r = self.convert_seconds_to_hms((time.perf_counter() - start_time)/(steps_ran/steps) - (time.perf_counter() - start_time))
+				print(f"{steps_ran/steps:.2%} complete. ETA {time_r[0]} hours {time_r[1]} minutes {time_r[2]} seconds. Steps per second {last_second_steps}")
 				last_second = last_second + 1
-			pickle.dump(self.bodies, file, protocol = pickle.DEFAULT_PROTOCOL)
+				last_second_steps = 0
+			if (steps_ran % freq == 0):
+				pickle.dump(self.bodies, file, protocol = pickle.DEFAULT_PROTOCOL)
 			steps_ran += 1
+			last_second_steps += 1
 		file.close()
 
-
+	def convert_seconds_to_hms(self, seconds):
+		hours = seconds // 3600
+		minutes = (seconds % 3600) // 60
+		seconds = seconds % 60
+		return hours, minutes, seconds
 
 	def get_gbodies(self):
 		g_bodies = []
