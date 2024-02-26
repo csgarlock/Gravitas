@@ -83,11 +83,11 @@ class GraphicsController:
 								self.focus_id = self.get_id_at_pos(event.pos, 10)
 						last_click_time = time.perf_counter()
 
-			self.screen.fill("black")
+			self.screen.fill((10, 10, 10))
 			self.update_last_gbodies(from_prop)
 			if (self.focus_id is not None):
 				self.focus_on_id()
-			for gbody in self.last_gbodies:
+			for gbody in reversed(self.last_gbodies):
 				self.draw_gbody(gbody)
 			self.draw_labels()
 			pygame.display.flip()

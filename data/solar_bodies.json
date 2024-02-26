@@ -4,32 +4,62 @@
 		{
 			"name": "Sun",
 			"mass": 1.989e+30,
-			"radius": 696340000
+			"radius": 696340000,
+			"color": {
+				"r": 214,
+				"g": 112,
+				"b": 2
+			}
 		},
 		{
 			"name": "Mercury",
 			"mass": 3.285e+23,
-			"radius": 2439700
+			"radius": 2439700,
+			"color": {
+				"r": 140,
+				"g": 140,
+				"b": 140
+			}
 		},
 		{
 			"name": "Venus",
 			"mass": 4.8675e+24,
-			"radius": 6051800
+			"radius": 6051800,
+			"color": {
+				"r": 250,
+				"g": 173,
+				"b": 90
+			}
 		},
 		{
 			"name": "Earth",
 			"mass": 5.9722e+24,
-			"radius": 6378000
+			"radius": 6378000,
+			"color": {
+				"r": 0,
+				"g": 72,
+				"b": 189
+			}
 		},
 		{
 			"name": "Luna",
 			"mass": 7.348e+22,
-			"radius": 1740000
+			"radius": 1740000,
+			"color": {
+				"r": 145,
+				"g": 145,
+				"b": 145
+			}
 		},
 		{
 			"name": "Mars",
 			"mass": 6.39e+23,
-			"radius": 3389500
+			"radius": 3389500,
+			"color": {
+				"r": 193,
+				"g": 68,
+				"b": 14
+			}
 		},
 		{
 			"name": "Phobos",
@@ -44,7 +74,12 @@
 		{
 			"name": "Jupiter",
 			"mass": 1.898e+27,
-			"radius": 69911000
+			"radius": 69911000,
+			"color": {
+				"r": 210,
+				"g": 165,
+				"b": 155
+			}
 		},
 		{
 			"name": "Io",
@@ -69,7 +104,12 @@
 		{
 			"name": "Saturn",
 			"mass": 5.683e+26,
-			"radius": 58232000
+			"radius": 58232000,
+			"color": {
+				"r": 226,
+				"g": 191,
+				"b": 125
+			}
 		},
 		{
 			"name": "Titan",
@@ -89,7 +129,12 @@
 		{
 			"name": "Uranus",
 			"mass": 8.681e+25,
-			"radius": 25362000
+			"radius": 25362000,
+			"color": {
+				"r": 175,
+				"g": 219,
+				"b": 245
+			}
 		},
 		{
 			"name": "Titania",
@@ -109,7 +154,12 @@
 		{
 			"name": "Neptune",
 			"mass": 1.024e+26,
-			"radius": 24622000
+			"radius": 24622000,
+			"color": {
+				"r": 63,
+				"g": 84,
+				"b": 186
+			}
 		},
 		{
 			"name": "Triton",

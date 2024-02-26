@@ -28,7 +28,11 @@ class BodyLoader:
 
 	def get_body(self, name):
 		try:
-			return (Body(self.bodies[name]["mass"], np.array([0.0, 0.0]), np.array([0.0, 0.0]), self.bodies[name]["radius"], name))
+			color = "white"
+			if ("color" in self.bodies[name]):
+				color_dict = self.bodies[name]["color"]
+				color = (color_dict["r"], color_dict["g"], color_dict["b"])
+			return (Body(self.bodies[name]["mass"], np.array([0.0, 0.0]), np.array([0.0, 0.0]), self.bodies[name]["radius"], name, color))
 		except KeyError:
 			raise BodyLoaderError("Could Not find body with name: " + str(name))
 

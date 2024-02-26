@@ -31,7 +31,7 @@ def run_to_file(bodies, steps, name, overwrite = True):
 
 def run_live(bodies):
 
-	propagator = Propagator(bodies, time_step = Conversion.minutes(1), time_rate = Conversion.hours(1))
+	propagator = Propagator(bodies, time_step = Conversion.minutes(10), time_rate = Conversion.days(1))
 	graphics_controller = GraphicsController(False)
 	controller = Controller(propagator, graphics_controller)
 	controller.start_simulation()
