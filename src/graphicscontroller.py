@@ -208,12 +208,7 @@ class GraphicsController:
 			s_radius = max(1, gbody.radius/self.pix_ratio)
 			x_pos = s_pos[0] - (text_surface.get_size()[0]/2.0)
 			y_pos = s_pos[1] + s_radius + 5
-			self.screen.blit(text_surface, (x_pos, y_pos))
-
-
-
-
-					
+			self.screen.blit(text_surface, (x_pos, y_pos))				
 
 
 	def inflate_size(self, radius):
