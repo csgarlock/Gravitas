@@ -14,7 +14,7 @@ def main():
 	files = ["solar_bodies.json", "solar_systems.json"]
 	body_loader = BodyLoader(files)
 	system_builder = SystemBuilder(body_loader)
-	system_builder.add_system("Earth_System", (0, 0), (0, 0))
+	system_builder.add_system("Solar_System_Full", (0, 0), (0, 0))
 	bodies = system_builder.get_bodies()
 	# run_to_file(bodies, 10000, "test", True)
 	# run_from_file("test")
@@ -31,7 +31,7 @@ def run_to_file(bodies, steps, name, overwrite = True):
 
 def run_live(bodies):
 
-	propagator = Propagator(bodies, time_step = Conversion.minutes(1), time_rate = Conversion.days(1))
+	propagator = Propagator(bodies, time_step = Conversion.minutes(1), time_rate = Conversion.hours(1))
 	graphics_controller = GraphicsController(False)
 	controller = Controller(propagator, graphics_controller)
 	controller.start_simulation()

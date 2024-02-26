@@ -49,7 +49,7 @@ class Propagator:
 				while(time.perf_counter() - loop_start < self.loop_times):
 					pass
 			else:
-				print("Time Rate overrun")
+				print("Propagator Time Rate overrun")
 
 	def run_to_file(self, steps, name, freq = 10, overwrite = False):
 		out_path = "../out/"

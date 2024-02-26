@@ -20,6 +20,7 @@ class SystemBuilder:
 		self.bodies.extend(system)
 
 	def get_bodies(self):
+		self.bodies.sort(key = lambda x: x.mass, reverse=True)
 		return self.bodies
 
 	def rotate_vector(self, vector, degrees):

@@ -37,10 +37,11 @@ class GraphicsController:
 
 	def run(self, from_prop = None, to_prop = None, to_cont = None):
 		pygame.init()
+		pygame.font.init()
+		self.font = pygame.font.Font(None, 14)
 		self.screen = pygame.display.set_mode(self.size)
 		if(self.mode == 0):
 			self.last_gbodies = from_prop.get()
-			print("last Gbodies " + str(self.last_gbodies))
 			if (len(self.last_gbodies) > 1):
 				self.center_screen()
 			to_prop.send("ready")
@@ -88,13 +89,14 @@ class GraphicsController:
 				self.focus_on_id()
 			for gbody in self.last_gbodies:
 				self.draw_gbody(gbody)
+			self.draw_labels()
 			pygame.display.flip()
 			remaining_time = self.loop_times - (time.perf_counter() - loop_start)
 			if (remaining_time > 0):
 				while(time.perf_counter() - loop_start < self.loop_times):
 					pass
 			else:
-				print("Time Rate overrun")
+				print("Graphics Time Rate overrun")
 
 	def update_last_gbodies(self, q):
 		if (self.mode == 0):
@@ -115,10 +117,10 @@ class GraphicsController:
 				sys.exit()
 			self.last_gbodies = gbodies
 
-	def get_id_at_pos(self, pos, dead_zone = 0):
+	def get_id_at_pos(self, pos, tolerance_radius = 0):
 		found_gbodies = []
 		for gbody in self.last_gbodies:
-			s_radius = max(1, gbody.radius/self.pix_ratio) + dead_zone
+			s_radius = max(1, gbody.radius/self.pix_ratio) + tolerance_radius
 			s_pos = (gbody.pos-self.top_left)/self.pix_ratio
 			distance = math.sqrt(math.pow(s_pos[0] - pos[0], 2) + math.pow(s_pos[1] - pos[1], 2))
 			if (distance <= s_radius):
@@ -180,6 +182,38 @@ class GraphicsController:
 
 	def draw_gbody(self, gbody):
 		pygame.draw.circle(self.screen, gbody.color, (gbody.pos-self.top_left)/self.pix_ratio, self.inflate_size(gbody.radius/self.pix_ratio))
+
+	def draw_labels(self):
+		pix_range = 15
+		m_gbodies = []
+		gbodies = self.last_gbodies[:]
+		i = 0
+		while (i < len(gbodies)):
+			gbody = gbodies[i]
+			m_gbodies.append(gbody)
+			l_pos = (gbody.pos-self.top_left)/self.pix_ratio
+			j = i + 1
+			while (j < len(gbodies)):
+				o_gbody = gbodies[j]
+				o_pos = (o_gbody.pos-self.top_left)/self.pix_ratio
+				distance = math.sqrt(math.pow(l_pos[0] - o_pos[0], 2) + math.pow(l_pos[1] - o_pos[1], 2))
+				if (distance <= pix_range):
+					gbodies.pop(j)
+				else:
+					j += 1
+			i += 1
+		for gbody in m_gbodies:
+			text_surface = self.font.render(gbody.name, True, "white")
+			s_pos = (gbody.pos-self.top_left)/self.pix_ratio
+			s_radius = max(1, gbody.radius/self.pix_ratio)
+			x_pos = s_pos[0] - (text_surface.get_size()[0]/2.0)
+			y_pos = s_pos[1] + s_radius + 5
+			self.screen.blit(text_surface, (x_pos, y_pos))
+
+
+
+
+					
 
 
 	def inflate_size(self, radius):
