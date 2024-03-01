@@ -13,11 +13,11 @@ class Controller:
 
 	def start_simulation(self):
 		prop_to_graph_queue = Queue()
-		p_from_grap, g_to_prop = Pipe()
+		graph_to_prop_queue = Queue()
 		prop_to_cont_queue = Queue()
 		graph_to_cont_queue = Queue()
-		graphics_process = Process(target = self.graphics_controller.run, args = (prop_to_graph_queue, g_to_prop, graph_to_cont_queue))
-		propagator_process = Process(target = self.propagator.run, args = (-1, p_from_grap, prop_to_graph_queue, prop_to_cont_queue))
+		graphics_process = Process(target = self.graphics_controller.run, args = (prop_to_graph_queue, graph_to_prop_queue, graph_to_cont_queue))
+		propagator_process = Process(target = self.propagator.run, args = (-1, graph_to_prop_queue, prop_to_graph_queue, prop_to_cont_queue))
 		propagator_process.start()
 		graphics_process.start()
 		graphics_process.join()

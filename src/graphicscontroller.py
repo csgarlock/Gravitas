@@ -4,6 +4,7 @@ import math
 import time
 import numpy as np
 from gbody import GBody
+from grappacket import GrapPacket
 import pickle
 
 #Modes:
@@ -12,9 +13,11 @@ import pickle
 class GraphicsController:
 	def __init__(self, true_size = True, mode = 0, file = None, rate = 600, file_rate = 10):
 		self.true_size = true_size
-		self.size = self.width, self.height = 1000, 1000
+		self.size = self.width, self.height = 640, 640
 		self.screen = None
 		self.last_gbodies = None
+		self.time_rate = None
+		self.time_step = None
 		self.center = np.array([320.0, 320.0])
 		self.top_left = np.array([0, 0])
 		self.frame_size = 0
@@ -41,10 +44,13 @@ class GraphicsController:
 		self.font = pygame.font.Font(None, 14)
 		self.screen = pygame.display.set_mode(self.size)
 		if(self.mode == 0):
-			self.last_gbodies = from_prop.get()
+			packet = from_prop.get()
+			self.last_gbodies = packet.gbodies
+			self.time_rate = packet.time_rate
+			self.time_step = packet.time_step
 			if (len(self.last_gbodies) > 1):
 				self.center_screen()
-			to_prop.send("ready")
+			to_prop.put(GrapPacket("ready"))
 		if (self.mode == 1):
 			with open("../out/" + self.file + ".gravitas", "rb") as f:
 				while (True):
@@ -69,8 +75,14 @@ class GraphicsController:
 				elif (event.type == pygame.KEYDOWN):
 					if (event.key == pygame.K_c):
 						self.center_screen()
-					if (event.key == pygame.K_z):
+					elif (event.key == pygame.K_z):
 						self.focus_id = None
+					elif (event.key == pygame.K_EQUALS):
+						to_prop.put(GrapPacket("rate_increase", 1.5))
+					elif (event.key == pygame.K_MINUS):
+						to_prop.put(GrapPacket("rate_increase", 0.666666))
+					elif (event.key == pygame.K_SPACE):
+						to_prop.put(GrapPacket("pause"))
 				elif (event.type == pygame.MOUSEWHEEL):
 					self.zoom(event.y)
 				elif (event.type == pygame.MOUSEMOTION):
@@ -90,6 +102,7 @@ class GraphicsController:
 			for gbody in reversed(self.last_gbodies):
 				self.draw_gbody(gbody)
 			self.draw_labels()
+			self.draw_ui()
 			pygame.display.flip()
 			remaining_time = self.loop_times - (time.perf_counter() - loop_start)
 			if (remaining_time > 0):
@@ -100,12 +113,17 @@ class GraphicsController:
 
 	def update_last_gbodies(self, q):
 		if (self.mode == 0):
+			last_packet = None
 			while (True):
 				try:
-					bodies = q.get(block = False)
-					self.last_gbodies = bodies
+					packet = q.get(block = False)
+					last_packet = packet
 				except queue.Empty:
 					break
+			if (last_packet is not None):
+				self.last_gbodies = last_packet.gbodies
+				self.time_rate = last_packet.time_rate
+				self.time_step = last_packet.time_step
 		if (self.mode == 1):
 			self.time_pos += self.pos_per_frame
 			gbodies = []
@@ -208,7 +226,16 @@ class GraphicsController:
 			s_radius = max(1, gbody.radius/self.pix_ratio)
 			x_pos = s_pos[0] - (text_surface.get_size()[0]/2.0)
 			y_pos = s_pos[1] + s_radius + 5
-			self.screen.blit(text_surface, (x_pos, y_pos))				
+			self.screen.blit(text_surface, (x_pos, y_pos))
+
+	def draw_ui(self):
+		if (self.time_rate is not None and self.time_step is not None):
+			rate_readable_time = self.get_readable_time(self.time_rate)
+			rate_text_surface = self.font.render(rate_readable_time + " per Second", True, "white")
+			step_readable_time = self.get_readable_time(self.time_step)
+			step_text_surface = self.font.render(step_readable_time + " per Step", True, "white")
+			self.screen.blit(rate_text_surface, (5, self.height - rate_text_surface.get_height() -step_text_surface.get_height() - 10))
+			self.screen.blit(step_text_surface, (5, self.height - step_text_surface.get_height() - 5))
 
 
 	def inflate_size(self, radius):
@@ -216,5 +243,25 @@ class GraphicsController:
 			return max(radius, 1)
 		else:
 			return radius
+
+	def get_readable_time(self, time):
+		amount = time
+		unit = "Seconds"
+		if (time > 1.0e7):
+			amount = time/31536000.0
+			unit = "Years"
+		elif (time > 30000):
+			amount = time/86400.0
+			unit = "Days"
+		elif (time > 2000):
+			amount = time/3600.0
+			unit = "Hours"
+		elif (time > 30):
+			amount = time/60
+			unit = "Minutes"
+		return f"{amount:.2f} {unit}"
+
+
+
 
 

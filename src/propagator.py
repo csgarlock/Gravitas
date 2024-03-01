@@ -3,7 +3,10 @@ import math
 import time
 import os
 import pickle
+import queue
 from gbody import GBody
+from proppacket import PropPacket
+
 class Propagator:
 	def __init__(self, bodies, G = 6.6743e-11, time_step = 60, time_rate = 86400):
 		self.bodies = bodies
@@ -11,6 +14,7 @@ class Propagator:
 		self.time_rate = time_rate
 		self.time_step = float(time_step)
 		self.loop_times = 1/(self.time_rate/self.time_step)
+		self.paused = False
 		print(self.loop_times)
 
 	def step(self):
@@ -35,12 +39,15 @@ class Propagator:
 			g_bodies = self.get_gbodies()
 			to_grap.put(g_bodies)
 		current_steps = 0
-		g_message = from_grap.recv()
-		if (g_message != "ready"):
+		g_message = from_grap.get()
+		if (g_message.command != "ready"):
 			print("This Definitly should not happen")
 			return
 		while (current_steps != steps):
 			loop_start = time.perf_counter()
+			self.receive_commands(from_grap)
+			while(self.paused):
+				self.receive_commands(from_grap)
 			self.step()
 			to_grap.put(self.get_gbodies())
 			current_steps += 1
@@ -88,5 +95,19 @@ class Propagator:
 		for body in self.bodies:
 			g_body = GBody(body.mass, body.pos, body.radius, body.id, body.name, body.color)
 			g_bodies.append(g_body)
-		return g_bodies
+		return PropPacket(g_bodies, self.time_rate, self.time_step)
+
+	def receive_commands(self, from_grap):
+		while (True):
+			try:
+				packet = from_grap.get(block = False)
+				if (packet.command == "rate_increase"):
+					self.time_rate *= packet.value
+					self.time_step *= packet.value
+					self.loop_times = 1/(self.time_rate/self.time_step)
+				elif (packet.command == "pause"):
+					print("pause")
+					self.paused = not self.paused
+			except queue.Empty:
+				break
 
