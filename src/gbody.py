@@ -8,4 +8,4 @@ class GBody:
 		self.id = id_num
 
 	def __str__(self):
-		return self.name + " At " + str(self.pos)
+		return self.name + " At " + str(self.pos) + " With Mass " + str(self.mass)

@@ -13,7 +13,7 @@ import pickle
 class GraphicsController:
 	def __init__(self, true_size = True, mode = 0, file = None, rate = 600, file_rate = 10):
 		self.true_size = true_size
-		self.size = self.width, self.height = 640, 640
+		self.size = self.width, self.height = 1000, 1000
 		self.screen = None
 		self.last_gbodies = None
 		self.time_rate = None
@@ -70,6 +70,8 @@ class GraphicsController:
 			loop_start = time.perf_counter()
 			for event in pygame.event.get():
 				if (event.type == pygame.QUIT):
+					for gbody in self.last_gbodies:
+						print(gbody)
 					pygame.quit()
 					sys.exit()
 				elif (event.type == pygame.KEYDOWN):
@@ -118,6 +120,9 @@ class GraphicsController:
 				try:
 					packet = q.get(block = False)
 					last_packet = packet
+					for collision in last_packet.collisions:
+						if (collision[1].id == self.focus_id):
+							self.focus_id = collision[0].id
 				except queue.Empty:
 					break
 			if (last_packet is not None):

@@ -1,0 +1,55 @@
+{
+	"type": "body",
+	"bodies": [
+		{
+			"name": "1_M_Black_Hole",
+			"mass": 1.989e+30,
+			"radius": 2954,
+			"color": {
+				"r": 0,
+				"g": 0,
+				"b": 0
+			}
+		},
+		{
+			"name": "5_M_Black_Hole",
+			"mass": 9.945e+30,
+			"radius": 14770,
+			"color": {
+				"r": 0,
+				"g": 0,
+				"b": 0
+			}
+		},
+		{
+			"name": "10_M_Black_Hole",
+			"mass": 1.989e+31,
+			"radius": 29540,
+			"color": {
+				"r": 0,
+				"g": 0,
+				"b": 0
+			}
+		},
+		{
+			"name": "25_M_Black_Hole",
+			"mass": 4.9725e+31,
+			"radius": 73851,
+			"color": {
+				"r": 0,
+				"g": 0,
+				"b": 0
+			}
+		},
+		{
+			"name": "100_M_Black_Hole",
+			"mass": 1.989e+32,
+			"radius": 295403,
+			"color": {
+				"r": 0,
+				"g": 0,
+				"b": 0
+			}
+		}
+	]
+}
